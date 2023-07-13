@@ -25,7 +25,7 @@ const findOneMealController = new FindOneMealController();
 // Users Routes
 routes.post('/users', createUserController.handle);
 routes.post('/users/login', authenticaUserController.handle);
-routes.get('/users/meals/:id', findAllMealsUserController.handle);
+routes.get('/users/meals/', findAllMealsUserController.handle);
 
 // Meals Routes
 routes.post('/meals', ensureAuthenticateClient, createMealController.handle);
