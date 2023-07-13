@@ -6,6 +6,7 @@ import { UpdateMealController } from './modules/meals/controllers/UpdateMealCont
 import { DeleteMealController } from './modules/meals/controllers/DeleteMealController';
 import { FindOneMealController } from './modules/meals/controllers/FindOneMealController';
 import { FindAllMealsUserController } from './modules/users/controllers/FindAllMealsUserControllers';
+import { ensureAuthenticateClient } from './middlewares/ensureAuthenticateClient';
 
 const routes = Router();
 
@@ -27,7 +28,7 @@ routes.post('/users/login', authenticaUserController.handle);
 routes.get('/users/meals/:id', findAllMealsUserController.handle);
 
 // Meals Routes
-routes.post('/meals', createMealController.handle);
+routes.post('/meals', ensureAuthenticateClient, createMealController.handle);
 routes.put('/meals/:id', updateMealController.handle);
 routes.delete('/meals/:id', deleteMealController.handle);
 routes.get('/meals/:id', findOneMealController.handle);
