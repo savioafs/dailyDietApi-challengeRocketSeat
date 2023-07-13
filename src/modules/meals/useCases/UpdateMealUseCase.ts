@@ -1,33 +1,32 @@
 import { prisma } from '../../../database';
 
 interface IUpdateMeal {
-  id_meal: string;
+  id: string;
   name: string;
   description: string;
-  is_diet: boolean;
-};
+  is_diet: boolean
+}
 
 class UpdateMealUseCase {
-  async execute({ id_meal, name, description, is_diet }: IUpdateMeal){
-
-    const mealExists = await prisma.meal.findFirst({
+  async execute({ id, name, description, is_diet }: IUpdateMeal){
+    
+    await prisma.meal.updateMany({
       where: {
-        id: id_meal,
+        id,
+      }, data: {
+        name, 
+        description,
+        is_diet,
       },
     });
 
-    if(!mealExists) {
-      throw new Error('Meal does not exists');
-    };
+    const mealUpdated = await prisma.meal.findFirst({
+      where: {
+        id
+      },
+    });
 
-    const mealUpdate = await prisma.meal.update({
-      data: {
-        name,
-        description,
-        is_diet
-      }
-    })
-
+    return mealUpdated;
   };
 };
 

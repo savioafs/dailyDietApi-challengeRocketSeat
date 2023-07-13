@@ -7,12 +7,12 @@ class CreateUserController {
 
     const createUserUseCase = new CreateUserUseCase();
 
-    const user = await createUserUseCase.execute({
+    await createUserUseCase.execute({
       username,
       password,
     });
 
-    return res.status(201).json(user);
+    return res.status(201).json();
   };
 };
 
